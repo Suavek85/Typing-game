@@ -1,0 +1,361 @@
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="styles3.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <ul class="flex-cont">
+        <li><a href='basic.html'>BASIC LEVEL</a></li>
+        <li><a href='index.html'>NORMAL LEVEL</a></li>
+        <li><a style='font-weight: 900' href='advanced.html'>ADVANCED LEVEL</a></li>
+    </ul>
+
+    <div class='score-container'>
+
+        <button class='letter_word' id="button_words_5">5 letter words</button>
+
+        <button class='letter_word' id="button_words_6">6 letter words</button>
+
+        <button class='letter_word' id="button_words_7">7 letters words</button>
+
+    </div>
+
+    <div class='container'>
+
+
+    </div>
+
+
+    <div class='hello'><img class='emo_small' src='EMOTICONS/smiling.png'>
+        <p>Hi there!<br> The rules of this game are simple:<br> Press the Start button and a random 5 letter word will be displayed. Enter it on your keyboard correctly to score a point. Make sure to do it before the countdown expires. You can set your own countdown or change the length of the words. Good luck! </p>
+    </div>
+
+
+    <div class='well-done'><img class='emo' src='EMOTICONS/happy.png'>
+        <p>Well done, you got a point!</p>
+    </div>
+
+
+
+    <div class='sorry'><img class='emo' src='EMOTICONS/sad.png'>
+        <p>I am sorry, the game is over...</p>
+    </div>
+
+    <div class="score-container">
+
+        <button id='button'>Start the game</button>
+        <input type='text' placeholder="Countdown" id='input-style'>
+        <svg class="icon"><use xlink:href='IMAGES/sprite.svg#icon-stopwatch'></use></svg>
+
+    </div>
+
+
+    <div class='score-container'>
+
+        <div class='score-text' id="score-current">Zero points now!</div>
+
+        <div class='score-text' id="score-last">No previous score</div>
+
+        <div class='score-text' id="score-best">No best score</div>
+
+    </div>
+
+
+
+
+
+    <script>
+        var btn, random, random1, random2, random3, randomLetter1, randomLetter2, randomLetter3, letterArray, score, scoresArray, lastScore, bestScore, charsTyped, charCode, randomWord, long, countdown, countdown_number;
+
+        var score = 0;
+        var charsTyped = [];
+        var scoresArray = [];
+        var lastScore = 0;
+        var bestScore = 0;
+        var wordsArray = ['ELITE', 'DRILL', 'KNOCK', 'PLUCK', 'NERVE', 'THINK', 'STOCK', 'STAKE', 'DRAMA', 'YEARN', 'TRACK', 'ORBIT', 'THICK', 'BEGIN', 'RIGHT', 'BRAKE', 'FRAUD', 'SOLID', 'OPERA', 'TRAIL', 'NEEDLE', 'LEGEND', 'HEIGHT', 'MEADOW', 'OPTION', 'LONELY', 'BANISH', 'BEHAVE', 'FACADE', 'STROKE', 'BETRAY', 'PRISON', 'EXOTIC', 'INJURY', 'ESTATE', 'GROUND', 'BANNER', 'SQUASH', 'EXCESS', 'CHOICE', 'QUALITY', 'CONTENT', 'PATIENT', 'PERFECT', 'DESPAIR', 'PASTURE', 'FORMULA', 'MIXTURE', 'NERVOUS', 'OPPOSED', 'EPISODE', 'FEELING', 'OFFENSE', 'TRIBUTE', 'EYEBROW', 'PERCENT', 'NEGLECT', 'LIBERTY', 'TOURIST', 'SPECIES'];
+
+
+
+        var view = {
+
+
+            helloClear: function() {
+                document.querySelector(".hello").style.display = 'none';
+            },
+
+            countdownClear: function() {
+                clearTimeout(countdown);
+                document.getElementById('countdown_text').style.display = 'none';
+            },
+
+            wellDoneClear: function() {
+
+                document.querySelector(".well-done").style.display = 'none';
+            },
+
+            sorryClear: function() {
+
+                document.querySelector(".sorry").style.display = 'none';
+            },
+
+
+            updateScore: function() {
+
+                score += 1;
+                document.getElementById('score-current').innerHTML = 'You have got ' + score + ' point';
+            },
+
+            zeroScore: function() {
+
+                score = 0;
+                document.getElementById('score-current').innerHTML = 'You have got ' + score + ' points';
+            },
+
+
+            lastAndBestScoreDisplay: function() {
+
+                scoresArray.push(score);
+                lastScore = scoresArray.slice(scoresArray.length - 1);
+                document.getElementById('score-last').innerHTML = 'Last score: ' + lastScore + ' points';
+                bestScore = Math.max(...scoresArray);
+                document.getElementById('score-best').innerHTML = 'Best score: ' + bestScore + ' points';
+
+            },
+
+        }
+
+
+
+        document.getElementById('button_words_5').onclick = function() {
+
+
+            document.getElementById('button_words_5').style.backgroundColor = 'red';
+
+            document.getElementById('button_words_6').style.backgroundColor = 'yellow';
+
+
+            document.getElementById('button_words_7').style.backgroundColor = 'yellow';
+
+        }
+
+
+
+        document.getElementById('button_words_6').onclick = function() {
+
+            document.getElementById('button_words_5').style.backgroundColor = 'yellow';
+            document.getElementById('button_words_6').style.backgroundColor = 'red';
+            document.getElementById('button_words_7').style.backgroundColor = 'yellow';
+
+
+        }
+
+
+        document.getElementById('button_words_7').onclick = function() {
+
+            document.getElementById('button_words_5').style.backgroundColor = 'yellow';
+            document.getElementById('button_words_6').style.backgroundColor = 'yellow';
+            document.getElementById('button_words_7').style.backgroundColor = 'red';
+
+        }
+
+
+
+        document.getElementById('button').onclick = function() {
+
+            listenKeys();
+            view.helloClear();
+            view.sorryClear();
+            generateGame();
+            countdownInit();
+            document.getElementById("button").style.display = 'none';
+
+        }
+
+
+        function generateGame() {
+
+
+            charsTyped.splice(0, charsTyped.length);
+
+
+            random1 = Math.floor((Math.random() * 20) + 1);
+            random2 = Math.floor((Math.random() * 20) + 21);
+            random3 = Math.floor((Math.random() * 20) + 41);
+
+
+
+            if (document.getElementById('button_words_5').style.backgroundColor === 'red') {
+                random = random1;
+                long = 4;
+            } else if (document.getElementById('button_words_6').style.backgroundColor === 'red') {
+                random = random2;
+                long = 5;
+            } else if (document.getElementById('button_words_7').style.backgroundColor === 'red') {
+                random = random3;
+                long = 6;
+            } else if
+
+            (document.getElementById('button_words_5').style.backgroundColor === 'yellow' &&
+                document.getElementById('button_words_6').style.backgroundColor === 'red' &&
+                document.getElementById('button_words_7').style.backgroundColor === 'yellow') {
+                random = random1;
+                long = 4;
+            } else {
+                random = random1;
+                long = 4;
+            }
+
+
+            randomWord = wordsArray[random].valueOf();
+
+
+            var html = '<div class="card">Please enter the word below:<br><h2 id="right">%someletter%</h2> <br>on your keyboard<div id="countdown_text">Time left</div></div>';
+
+            var newHtml = html.replace('%someletter%', randomWord);
+
+            document.querySelector(".container").insertAdjacentHTML('afterend', newHtml);
+
+
+            console.log("" + document.getElementById("right").innerHTML);
+
+
+        }
+
+
+        function countdownInit() {
+
+
+            var input = parseInt(document.getElementById('input-style').value) + 1;
+
+
+            if (input) {
+                countdown_number = input;
+            } else {
+                countdown_number = 6;
+            }
+
+            document.getElementById('countdown_text').style.display = 'block';
+
+            countdownTrigger();
+        }
+
+
+        function countdownTrigger() {
+
+
+
+            if (countdown_number > 0) {
+
+                countdown_number--;
+                document.getElementById('countdown_text').innerHTML = countdown_number + ' sec remaining!';
+                if (countdown_number > 0) {
+                    countdown = setTimeout('countdownTrigger()', 1000);
+                } else if (countdown_number === 0)
+
+
+                {
+                    document.getElementById('countdown_text').innerHTML = 'Times up!';
+
+                    document.querySelector(".card").style.display = 'none';
+                    document.querySelector(".sorry").style.display = 'block';
+                    
+                    view.lastAndBestScoreDisplay();
+                    view.zeroScore();
+                    view.countdownClear();
+                    document.getElementById("button").style.display = 'block';
+                    removeListenKeys();
+
+                } else {
+                    return;
+                }
+            }
+        }
+
+
+        function displayMulti(evt) {
+
+
+            evt = evt || window.event;
+
+
+            var charCode = typeof evt.which == "number" ? evt.which : evt.keyCode;
+
+            if (charCode) {
+                charsTyped.push(String.fromCharCode(charCode));
+            }
+
+
+            if ("" + charsTyped.join("") == document.getElementById('right').innerHTML)
+
+            {
+
+                document.querySelector(".card").style.display = 'none'
+                document.querySelector(".well-done").style.display = 'block';
+
+                view.updateScore();
+                view.countdownClear();
+                removeListenKeys();
+
+
+                setTimeout(function() {
+
+                    listenKeys();
+                    generateGame();
+                    countdownInit();
+                    view.wellDoneClear();
+
+                }, 2000)
+
+
+            } else if (charsTyped.length > long && "" + charsTyped.join("") != document.getElementById('right').innerHTML) {
+
+                console.log('Nope');
+                console.log("" + charsTyped.join(""), document.getElementById('right').innerHTML, long);
+
+
+                document.querySelector(".card").style.display = 'none';
+                document.querySelector(".sorry").style.display = 'block';
+
+                view.lastAndBestScoreDisplay();
+                view.zeroScore();
+                view.countdownClear();
+                removeListenKeys();
+
+                document.getElementById("button").style.display = 'block';
+
+
+            } else {
+                return;
+            }
+
+        };
+
+
+        
+         function listenKeys() {
+
+            window.addEventListener('keydown', displayMulti);
+
+        }
+        
+    
+        function removeListenKeys() {
+            
+            
+            window.removeEventListener('keydown', displayMulti);
+            
+        }
+        
+        
+
+    </script>
+
+
+</body>
+
+</html>

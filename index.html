@@ -1,0 +1,361 @@
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+
+    <ul>
+        <li><a href='basic.html'>BASIC LEVEL</a></li>
+        <li><a style='font-weight: 900' href='index.html'>NORMAL LEVEL</a></li>
+        <li><a href='advanced.html'>ADVANCED LEVEL</a></li>
+    </ul>
+
+    <div class='container'>
+
+        <div class='letter-box' id='bx-1' value="1">A</div>
+
+        <div class='letter-box' id='bx-2' value="2">B</div>
+
+        <div class='letter-box' id='bx-3' value="3">C</div>
+
+        <div class='letter-box' id='bx-4' value="4">D</div>
+
+
+        <div class='letter-box' id='bx-5' value="5">E</div>
+
+        <div class='letter-box' id='bx-6' value="6">F</div>
+
+        <div class='letter-box' id='bx-7' value="7">G</div>
+
+        <div class='letter-box' id='bx-8' value="8">H</div>
+
+        <div class='letter-box' id='bx-9' value="9">I</div>
+
+        <div class='letter-box' id='bx-10' value="10">J</div>
+
+        <div class='letter-box' id='bx-11' value="11">K</div>
+
+        <div class='letter-box' id='bx-12' value="12">L</div>
+
+
+        <div class='letter-box' id='bx-13' value="13">M</div>
+
+        <div class='letter-box' id='bx-14' value="14">N</div>
+
+        <div class='letter-box' id='bx-15' value="15">O</div>
+
+        <div class='letter-box' id='bx-16' value="16">P</div>
+
+        <div class='letter-box' id='bx-17' value="17">Q</div>
+
+        <div class='letter-box' id='bx-18' value="18">R</div>
+
+        <div class='letter-box' id='bx-19' value="19">S</div>
+
+
+        <div class='letter-box' id='bx-20' value="20">T</div>
+
+        <div class='letter-box' id='bx-21' value="21">U</div>
+
+        <div class='letter-box' id='bx-22' value="22">V</div>
+
+        <div class='letter-box' id='bx-23' value="23">W</div>
+
+        <div class='letter-box' id='bx-24' value="24">X</div>
+
+        <div class='letter-box' id='bx-25' value="25">Y</div>
+
+        <div class='letter-box' id='bx-26' value="26">Z</div>
+
+    </div>
+
+
+    <div class='hello'><img class='emo_small' src='EMOTICONS/smiling.png'>
+        <p>Hi there!<br> The rules of this game are simple:<br> Press the Start button and THREE random letters will be
+            displayed. Press them on your keyboard in the indicated order to score a point. Make sure to do it before
+            the countdown expires. You can set your own countdown time in the bottom box. Good luck! </p>
+    </div>
+
+    <div class='well-done'><img class='emo' src='EMOTICONS/happy.png'>
+        <p>Well done, you got a point!</p>
+    </div>
+
+    <div class='sorry'><img class='emo' src='EMOTICONS/sad.png'>
+        <p>I am sorry, the game is over...</p>
+    </div>
+
+    <div class="score-container">
+
+        <button id='button'>Start the game</button>
+
+
+        <input type='text' placeholder="Countdown" id='input-style'>
+
+        <svg class="icon">
+            <use xlink:href='IMAGES/sprite.svg#icon-stopwatch'></use>
+        </svg>
+
+    </div>
+
+    <div class='score-container'>
+
+        <div class='score-text' id="score-current">Zero points now!</div>
+
+        <div class='score-text' id="score-last">No previous score</div>
+
+        <div class='score-text' id="score-best">No best score</div>
+
+    </div>
+
+
+
+
+    <script>
+        var random1, random2, random3, score, scoresArray, lastScore, bestScore, charsTyped, charCode, countdown, countdown_number;
+
+        var score = 0;
+        var charsTyped = [];
+        var scoresArray = [];
+        var lastScore = 0;
+        var bestScore = 0;
+
+        var view = {
+
+
+            helloClear: function () {
+                document.querySelector(".hello").style.display = 'none';
+            },
+
+            countdownClear: function () {
+                clearTimeout(countdown);
+                document.getElementById('countdown_text').style.display = 'none';
+            },
+
+            wellDoneClear: function () {
+
+                document.querySelector(".well-done").style.display = 'none';
+            },
+
+            sorryClear: function () {
+
+                document.querySelector(".sorry").style.display = 'none';
+            },
+
+            updateScore: function () {
+
+                score += 1;
+                document.getElementById('score-current').innerHTML = 'You have got ' + score + ' point';
+            },
+
+            zeroScore: function () {
+
+                score = 0;
+                document.getElementById('score-current').innerHTML = 'You have got ' + score + ' points';
+            },
+
+            lastAndBestScoreDisplay: function () {
+
+                scoresArray.push(score);
+                lastScore = scoresArray.slice(scoresArray.length - 1);
+                document.getElementById('score-last').innerHTML = 'Last score: ' + lastScore + ' points';
+
+                bestScore = Math.max(...scoresArray);
+                document.getElementById('score-best').innerHTML = 'Best score: ' + bestScore + ' points';
+
+            },
+
+            clearLetters: function () {
+
+                document.querySelector(".card").style.display = 'none';
+                document.getElementById('bx-' + random1 + '').style.backgroundColor = 'rgba(0, 88, 116, 0.6)';
+                document.getElementById('bx-' + random2 + '').style.backgroundColor = 'rgba(0, 88, 116, 0.6)';
+                document.getElementById('bx-' + random3 + '').style.backgroundColor = 'rgba(0, 88, 116, 0.6)';
+            },
+
+        }
+
+        function generateGame() {
+
+            charsTyped.splice(0, charsTyped.length);
+
+            var letterArray = [64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,
+                86, 87, 88, 89, 90
+            ];
+
+
+            random1 = Math.floor((Math.random() * 26) + 1);
+            random2 = Math.floor((Math.random() * 26) + 1);
+            random3 = Math.floor((Math.random() * 26) + 1);
+
+
+            document.getElementById('bx-' + random1 + '').style.backgroundColor = 'orange';
+            document.getElementById('bx-' + random2 + '').style.backgroundColor = 'orange';
+            document.getElementById('bx-' + random3 + '').style.backgroundColor = 'orange';
+
+
+            var randomLetter1 = document.getElementById('bx-' + random1 + '').innerHTML;
+            var randomLetter2 = document.getElementById('bx-' + random2 + '').innerHTML;
+            var randomLetter3 = document.getElementById('bx-' + random3 + '').innerHTML;
+
+
+            var html =
+                '<div class="card">Please press letters in order:<br><h2 id="right">%someletter1%%someletter2%%someletter3%</h2> <br>on your keyboard<div id="countdown_text">Time left</div></div>';
+
+            var newHtml = html.replace('%someletter1%', randomLetter1);
+            newHtml = newHtml.replace('%someletter2%', randomLetter2);
+            newHtml = newHtml.replace('%someletter3%', randomLetter3);
+            document.querySelector(".container").insertAdjacentHTML('afterend', newHtml);
+
+
+        }
+
+
+        function countdownInit() {
+
+
+            var input = parseInt(document.getElementById('input-style').value) + 1;
+
+
+            if (input) {
+                countdown_number = input;
+            } else {
+                countdown_number = 6;
+            }
+
+            document.getElementById('countdown_text').style.display = 'block';
+
+            countdownTrigger();
+        }
+
+
+        function countdownTrigger() {
+
+            if (countdown_number > 0) {
+
+                countdown_number--;
+                document.getElementById('countdown_text').innerHTML = countdown_number + ' sec remaining!';
+                if (countdown_number > 0) {
+                    countdown = setTimeout('countdownTrigger()', 1000);
+                } else if (countdown_number === 0)
+
+
+                {
+                    document.getElementById('countdown_text').innerHTML = 'Times up!';
+
+                    document.querySelector(".sorry").style.display = 'block';
+
+                    view.clearLetters();
+                    view.lastAndBestScoreDisplay();
+                    view.zeroScore();
+                    view.countdownClear();
+                    removeListenKeys();
+                    document.getElementById('button').style.display = 'block';
+
+
+                } else {
+                    return;
+                }
+            }
+        }
+
+
+
+        document.getElementById('button').onclick = function () {
+
+            listenKeys();
+            view.helloClear();
+            view.sorryClear();
+            generateGame();
+            countdownInit();
+            document.getElementById('button').style.display = 'none';
+        }
+
+
+        function displayMulti(evt) {
+
+
+            evt = evt || window.event;
+
+
+            var charCode = typeof evt.which == "number" ? evt.which : evt.keyCode;
+
+            if (charCode) {
+                charsTyped.push(String.fromCharCode(charCode));
+            }
+
+
+            if ("" + charsTyped.join("") == document.getElementById('right').innerHTML)
+
+            {
+
+                document.querySelector(".well-done").style.display = 'block';
+
+                view.clearLetters();
+
+                view.updateScore();
+
+                view.countdownClear();
+
+                removeListenKeys();
+
+
+
+                setTimeout(function () {
+
+                    listenKeys();
+                    generateGame();
+                    countdownInit();
+                    view.wellDoneClear();
+
+                }, 2000)
+
+            } else if (charsTyped.length > 2 && "" + charsTyped.join("") != document.getElementById('right').innerHTML) {
+
+
+                document.querySelector(".sorry").style.display = 'block';
+
+                view.clearLetters();
+
+                view.lastAndBestScoreDisplay();
+
+                view.zeroScore();
+
+                view.countdownClear();
+
+                removeListenKeys();
+
+                document.getElementById('button').style.display = 'block';
+
+
+            } else {
+                return;
+            }
+
+        };
+
+
+        function listenKeys() {
+
+            window.addEventListener('keydown', displayMulti);
+
+        }
+
+
+        function removeListenKeys() {
+
+            window.removeEventListener('keydown', displayMulti);
+
+        }
+    </script>
+
+
+</body>
+
+</html>

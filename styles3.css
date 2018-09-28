@@ -1,0 +1,281 @@
+body {
+
+
+    background-image: url(IMAGES/sunset.jpg);
+    background-size:cover;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+h1 {
+
+    font-size: 35px;
+    text-align: center;
+}
+
+
+
+h2 {
+
+
+
+    letter-spacing: 3px;
+}
+
+
+ul {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+    list-style: none;
+    flex-wrap: wrap;
+
+}
+
+li {
+
+    padding: 20px 40px;
+    margin: 20px 20px;
+    border-radius: 10px;
+    flex-basis: 25%;
+    text-align: center;
+    font: 30px;
+    box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.15);
+    background: linear-gradient(to right, #FAFFD1, #A1FFCE);
+
+}
+
+
+a {
+
+    text-decoration: none;
+    align-content: center;
+    font-size: 20px;
+    margin: auto;
+    color: black;
+    cursor: pointer;
+
+}
+
+
+.container {
+
+    margin: 0;
+
+}
+
+
+.score-container {
+
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+
+
+.letter-box {
+
+    padding: 20px;
+    margin: 8px;
+    font: 20px;
+    border: px solid #A3FFCE;
+    background-color: rgba(0,88,116,0.6);
+    border-radius: 10px;
+    color: #fefefe;
+    font-size: large;
+    font-weight: 900;
+    box-shadow: 0 0.2rem 0.3rem rgba(0,0,0,0.1);
+
+}
+
+
+
+.card {
+
+
+    display: block;
+    margin: 30px auto;
+    border: 5px solid black;
+    width: 330px;
+    height: 250px;
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 20;
+}
+
+
+.hello {
+
+
+    display: block;
+    margin: 30px auto;
+    width: 500px;
+    text-align: center;
+    padding: 20px 30px;
+    font-size: 16;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,.4);
+    line-height: 1.5;
+    box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.15);
+
+
+}
+
+
+
+
+.well-done {
+
+
+    display: none;
+    margin: 30px auto;
+    border: 5px solid black;
+    width: 330px;
+    height: 250px;
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 20;
+
+
+}
+
+
+.sorry {
+
+
+    display: none;
+    margin: 30px auto;
+    border: 5px solid black;
+    width: 330px;
+    height: 250px;
+    text-align: center;
+    padding: 20px 5px;
+    font-size: 20;
+
+
+}
+
+
+
+.emo {
+
+    width: 150px;
+    height: 150px;
+
+}
+
+
+.emo_small {
+
+    width: 50px;
+    height: 50px;
+
+}
+
+#countdown_text {
+
+
+    margin-top: 15px;
+    font-size: 30px;
+    font-weight: 900;
+    display: block;
+
+
+}
+
+.score-text {
+
+
+    font-size: 20px;
+    font-weight: 900;
+    padding: 10px 15px;
+    margin: 15px 10px;
+    font: 16px;
+    background-color: cornsilk;
+    border-radius: 20px;
+    box-shadow: 0 0.5rem 0.5rem rgba(0,0,0,0.1);
+
+
+
+}
+
+
+#button {
+
+
+    padding: 10px 35px;
+    display: block;
+    background-color: #24FE41;
+    background: linear-gradient(to bottom, #81FD90, #24FE41);
+    margin: 10px 10px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.15);
+}
+
+
+
+
+.letter_word {
+
+
+    background-color: yellow;
+    padding: 35px 25px;
+    margin: 20px;
+    cursor: pointer;
+
+
+
+}
+
+
+#input-style {
+
+
+    width: 115px;
+    margin-right: -30px;
+}
+
+
+
+
+
+.icon {
+    display: inline-block;
+    width: 23px;
+    height: 23px;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: #8e8e8e;
+    border: none;
+
+}
+
+
+input::-webkit-input-placeholder {
+    direction: rtl;
+    text-align: left;
+    padding-left: 7px;
+}
+
+
+input {
+
+
+   padding: 10px 0px;
+    text-align: center;
+    display: block;
+    margin: 10px 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0.5rem 0.4rem rgba(0,0,0,0.1);
+}
+
+
