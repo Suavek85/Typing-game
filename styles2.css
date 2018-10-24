@@ -1,9 +1,10 @@
 body {
 
 
-    background-image: url(IMAGES/sea.jpg);
+    background-image: url(IMAGES/basic_black.jpg);
     background-size: cover;
     font-family: 'Montserrat', sans-serif;
+    
 }
 
 
@@ -100,7 +101,9 @@ a {
 
     display: block;
     margin: 30px auto;
-    border: 5px solid black;
+    border: 5px solid white;
+    background-color: rgba(0, 0, 0, .6);
+    color: white;
     width: 330px;
     height: 250px;
     text-align: center;
@@ -119,7 +122,8 @@ a {
     padding: 20px 30px;
     font-size: 16;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, .4);
+    background-color: rgba(0, 0, 0, .6);
+    color: white;
     line-height: 1.5;
     box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
 
@@ -134,7 +138,9 @@ a {
 
     display: none;
     margin: 30px auto;
-    border: 5px solid black;
+    border: 5px solid white;
+    background-color: rgba(0, 0, 0, .6);
+    color: white;
     width: 330px;
     height: 250px;
     text-align: center;
@@ -150,7 +156,9 @@ a {
 
     display: none;
     margin: 30px auto;
-    border: 5px solid black;
+    border: 5px solid white;
+    background-color: rgba(0, 0, 0, .6);
+    color: white;
     width: 330px;
     height: 250px;
     text-align: center;
