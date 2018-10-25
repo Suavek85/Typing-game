@@ -1,8 +1,9 @@
 body {
 
 
-    background-image: url(IMAGES/advanced_black.jpg);
+    background-image: linear-gradient(to right bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.1)),url(IMAGES/advanced_black.jpg);
     background-size:cover;
+    background-position: center;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -18,7 +19,7 @@ h1 {
 h2 {
 
 
-
+color: orange;
     letter-spacing: 3px;
 }
 
