@@ -1,15 +1,49 @@
-# Typing-game
-Typing game - JS project
+# Typing Game
 
-•	my own idea, created from scratch, not based on any online course, still in progress,
+> Vanilla JavaScript game - my first independent JS project
 
-•	tried to do something functional and bug free, not necessarily playable, 
+## Table of Contents
 
-•	the three different game levels have been coded in a slightly different way,
+- [General info](#general-info)
 
-•	there's still some room left for improvement especially in terms of structure and DRY-ness, 
+- [Features](#features)
 
-•	it's intended for desktop use only
+- [Technologies](#technologies)
 
-Typing game: https://htmlpreview.github.io/?https://github.com/Suavek85/Typing-game/blob/master/index.html
+- [Issues](#issues)
 
+- [Status](#status)
+
+## General info
+
+Vanilla JS typing game intended for desktop use only.
+
+My own idea ![🤓](https://mail.google.com/mail/e/1f913), created from scratch. ![🔨](https://mail.google.com/mail/e/1f528)
+
+[Live preview](https://htmlpreview.github.io/?https://github.com/Suavek85/Typing-game/blob/master/index.html)
+
+## Features
+
+- type in letters/ collections of letters or random words (depending on game level) as they appear on screen
+
+- get points for each correct answer, end game on wrong answer, 
+
+- display last and best score,
+
+
+## Technologies
+
+- Vanilla JS,
+
+- Flexbox.
+
+
+## Issues
+
+- desktop use only,
+
+- LOTS OF refactoring needed!
+
+## Status
+
+The project is on hold.
